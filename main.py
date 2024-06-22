@@ -9,6 +9,15 @@ class BankAccount:
         self.nic = nic
         self.balance = initial_deposit
 
+    def deposit(self, deposit_amount):
+        if deposit_amount > 0:
+            self.balance += deposit_amount
+            print(f"\nDeposited Rs.{deposit_amount:.2f} successfully. Current balance is Rs.{self.balance:.2f}.")
+        elif deposit_amount == 0:
+            print("\nDeposit amount can't be zero.")
+        else:
+            print("\nDeposit amount can't be negative.")
+
 
 # generates a random account number with 6 characters
 def account_number_generate():
@@ -53,11 +62,11 @@ def main():
                 age = input("Enter your age: ")
                 nic = input("Enter your NIC number: ")
                 while True:
-                    initial_deposit = int(input("Enter initial deposit amount: "))
+                    initial_deposit = float(input("Enter initial deposit amount: "))
                     if initial_deposit >= 1000:
                         break
                     else:
-                        print("Initial deposit amount must be at least Rs. 1000.00. Please try again.")
+                        print("Initial deposit amount must be at least Rs.1000.00. Please try again.")
                 account_number = account_number_generate()
                 account1 = BankAccount(account_number, name, age, nic, initial_deposit)
                 accounts_list.append(account1)
@@ -68,9 +77,22 @@ def main():
                 print(f"Account holder's name\t: {account1.name}")
                 print(f"Account holder's age\t: {account1.age}")
                 print(f"Account holder's NIC\t: {account1.nic}")
-                print(f"Available balance\t: Rs. {account1.balance:.2f}")
+                print(f"Available balance\t: Rs.{account1.balance:.2f}")
                 
-            
+            case '2':
+                account_number = input("\nEnter account number: ")
+                account = find_account(accounts_list, account_number)
+                if account:
+                    while True:
+                        amount = float(input("Enter deposit amount: "))
+                        if amount >= 100:
+                            break
+                        else:
+                            print("Initial deposit amount must be at least Rs.100.00. Please try again.")
+                    account.deposit(amount)
+                else:
+                    print("\nAccount not found. Please try again.")
+
             case '6':
                 print("\n\t++ Thank you for banking with E-CORP ++")
                 print("\n\t\t++ Have a nice day! ++\n")
