@@ -46,6 +46,9 @@ class BankAccount:
         except:
             print("Invalid input. Please enter a valid withdrawal amount.")
 
+    def check_balance(self):
+        print(f"\nYour current account balance is Rs.{self.balance:.2f}.")
+
 def account_number_generate():
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     acc_num = ""
@@ -136,6 +139,14 @@ def main():
                 account = find_account(accounts_list, account_number)
                 if account:
                     account.withdraw()
+                else:
+                    print("\nAccount not found. Please try again.")
+            
+            case '4':
+                account_number = input("\nEnter account number: ")
+                account = find_account(accounts_list, account_number)
+                if account:
+                    account.check_balance()
                 else:
                     print("\nAccount not found. Please try again.")
 
