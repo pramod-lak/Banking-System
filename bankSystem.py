@@ -49,6 +49,27 @@ class BankAccount:
     def check_balance(self):
         print(f"\nYour current account balance is Rs.{self.balance:.2f}.")
 
+    def transfer(self, to_account):
+        try:
+            while True:
+                amount = float(input("Enter transfer amount: "))
+                if amount >= 100:
+                    if amount <= self.balance - 1000:
+                        self.balance -= amount
+                        to_account.balance += amount
+                        print(f"\nTransfer Rs.{amount:.2f} successfully. Remaining balance is Rs.{self.balance:.2f}.")
+                        break
+                    else:
+                        print("\nCan't proceed with the transaction. Insufficient funds.\nMust leave at least Rs.1000.00 in the account.")
+                elif 0 < amount < 100:
+                    print("Transfer amount must be at least Rs.100.00. Please try again.")
+                elif amount == 0:
+                    print("Transfer amount can't be zero. Please try again.")
+                elif amount < 0:
+                    print("Transfer amount can't be negative. Please try again.")
+        except:
+            print("Invalid input. Please enter a valid transfer amount.")
+
 def account_number_generate():
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     acc_num = ""
@@ -149,6 +170,19 @@ def main():
                     account.check_balance()
                 else:
                     print("\nAccount not found. Please try again.")
+
+            case '5':
+                from_account_number = input("\nEnter your account number: ")
+                from_account = find_account(accounts_list, from_account_number)
+                if not from_account:
+                    print("\nAccount not found. Please try again.")
+                else:
+                    to_account_number = input("Enter recipient's account number: ")
+                    to_account = find_account(accounts_list, to_account_number)
+                    if not to_account:
+                        print("\nRecipient's account not found. Please try again.")
+                    else:
+                        from_account.transfer(to_account)
 
             case '6':
                 print("\n\t++ Thank you for banking with E-CORP ++")
