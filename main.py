@@ -52,7 +52,12 @@ def main():
                 name = input("\nEnter your name: ")
                 age = input("Enter your age: ")
                 nic = input("Enter your NIC number: ")
-                initial_deposit = int(input("Enter initial deposit amount: "))
+                while True:
+                    initial_deposit = int(input("Enter initial deposit amount: "))
+                    if initial_deposit >= 1000:
+                        break
+                    else:
+                        print("Initial deposit amount must be at least Rs. 1000.00. Please try again.")
                 account_number = account_number_generate()
                 account1 = BankAccount(account_number, name, age, nic, initial_deposit)
                 accounts_list.append(account1)
@@ -63,7 +68,7 @@ def main():
                 print(f"Account holder's name\t: {account1.name}")
                 print(f"Account holder's age\t: {account1.age}")
                 print(f"Account holder's NIC\t: {account1.nic}")
-                print(f"Available balance\t: Rs.{account1.balance:.2f}")
+                print(f"Available balance\t: Rs. {account1.balance:.2f}")
                 
             
             case '6':
