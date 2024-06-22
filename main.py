@@ -36,7 +36,7 @@ class BankAccount:
                         print(f"\nWithdrew Rs.{amount:.2f} successfully. Remaining balance is Rs.{self.balance:.2f}.")
                         break
                     else:
-                        print("Can't proceed with the transaction. Insufficient funds.")
+                        print("Can't proceed with the transaction. Insufficient funds.\nMust leave at least Rs.1000.00 in the account.")
                 elif 0 < amount < 100:
                     print("Withdrawal amount must be at least Rs.100.00. Please try again.")
                 elif amount == 0:
@@ -80,9 +80,24 @@ def main():
         
         match choice:
             case '1':
-                name = input("\nEnter your name: ")
-                age = input("Enter your age: ")
-                nic = input("Enter your NIC number: ")
+                while True:
+                    name = input("\nEnter your name: ")
+                    if name:
+                        break
+                    else:
+                        print("Name can't be empty. Please try again.")
+                while True:
+                    age = input("Enter your age: ")
+                    if age:
+                        break
+                    else:
+                        print("Age can't be empty. Please try again.")
+                while True:
+                    nic = input("Enter your NIC number: ")
+                    if nic:
+                        break
+                    else:
+                        print("NIC number can't be empty. Please try again.")
                 try:
                     while True:
                         initial_deposit = float(input("Enter initial deposit amount: "))
