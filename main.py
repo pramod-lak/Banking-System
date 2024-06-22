@@ -18,6 +18,16 @@ class BankAccount:
         else:
             print("\nDeposit amount can't be negative.")
 
+    def withdraw(self, withdrawal_amount):
+        if withdrawal_amount < (self.balance - 1000):
+            self.balance -= withdrawal_amount
+            print(f"\nWithdrew Rs.{withdrawal_amount:.2f} successfully. Remaining balance is Rs.{self.balance:.2f}.")
+        elif withdrawal_amount >= (self.balance - 1000):
+            print("\nCan't proceed with the transaction. Insufficient funds.")
+        elif withdrawal_amount == 0:
+            print("\nWithdrawal amount can't be zero.")
+        else:
+            print("\nWithdrawal amount can't be negative.")
 
 # generates a random account number with 6 characters
 def account_number_generate():
@@ -54,9 +64,9 @@ def main():
     accounts_list = []
     while True:
         display_menu()
-        user_choice = input("\nEnter a number between 1 to 6: ")
+        choice = input("\nEnter a number between 1 to 6: ")
         
-        match user_choice:
+        match choice:
             case '1':
                 name = input("\nEnter your name: ")
                 age = input("Enter your age: ")
@@ -87,9 +97,32 @@ def main():
                         amount = float(input("Enter deposit amount: "))
                         if amount >= 100:
                             break
-                        else:
-                            print("Initial deposit amount must be at least Rs.100.00. Please try again.")
+                        elif 0 < amount < 100:
+                            print("Deposit amount must be at least Rs.100.00. Please try again.")
+                        elif amount == 0:
+                            print("Deposit amount can't be zero. Please try again.")
+                        elif amount < 0:
+                            print("Deposit amount can't be negative. Please try again.")
+                            
                     account.deposit(amount)
+                else:
+                    print("\nAccount not found. Please try again.")
+
+            case '3':
+                account_number = input("\nEnter account number: ")
+                account = find_account(accounts_list, account_number)
+                if account:
+                    while True:
+                        amount = float(input("Enter withdraw amount: "))
+                        if amount >= 100:
+                            break
+                        elif 0 < amount < 100:
+                            print("Withdrawal amount must be at least Rs.100.00. Please try again.")
+                        elif amount == 0:
+                            print("Withdrawal amount can't be zero. Please try again.")
+                        elif amount < 0:
+                            print("Withdrawal amount can't be negative. Please try again.")
+                    account.withdraw(amount)
                 else:
                     print("\nAccount not found. Please try again.")
 
